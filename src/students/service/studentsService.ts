@@ -1,10 +1,13 @@
 import { showErrorModal } from "../../dom/index.js";
+import { students } from "../../index.js";
 import { Student } from "../../types.js";
 import { generateId } from "../../utils.js";
 
 // Crea una función para obtener el total de estudiantes
 // La función debe recibir un array de estudiantes y devolver el total de estudiantes
-// export const getStudentsTotal =
+export const getStudentsTotal = (): number => {
+  return students.length;
+};
 
 // Crea una función para añadir un estudiante a la lista de estudiantes
 // La función debe recibir un array de estudiantes y los datos del estudiante a añadir
