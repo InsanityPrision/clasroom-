@@ -30,3 +30,9 @@ export type CourseStats = {
   highestGrade: number;
   highestGradeStudentId: number;
 };
+
+export type StudentOptions = {
+  id: number;
+  name: string;
+  lastName: string;
+};
