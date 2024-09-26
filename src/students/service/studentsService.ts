@@ -28,10 +28,13 @@ export const addStudent = (
     email: studentEmail,
     phoneNumber: studentPhone,
   };
-  for (let position = 0; position < students.length; position++) {
+  for (let position = 0; position <= students.length; position++) {
+    if (students.length === 0) {
+      students.push(newStudent);
+      break;
+    }
     if (students[position].email === newStudent.email) {
       showErrorModal("El estudiante ya esta en la lista");
-      break;
     } else {
       students.push(newStudent);
       break;
