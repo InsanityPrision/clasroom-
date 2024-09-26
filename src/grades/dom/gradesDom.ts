@@ -3,9 +3,9 @@ import { getStudentsOptions } from "../../students/service/studentsService.js";
 import { getCoursesOptions } from "../../courses/service/coursesService.js";
 import { Grade } from "../../types.js";
 import {
-  //   addGrade,
+  addGrade,
   //   deleteGrade,
-  //   getGradeFullData,
+  getGradeFullData,
   getGradesTotal,
 } from "../service/gradesService.js";
 import { gradesStorage } from "../../storage/Storage.js";
@@ -47,10 +47,10 @@ export const renderGradesTable = (): void => {
 };
 
 const createGradeRow = (grade: Grade): void => {
-  // const gradeData = getGradeFullData(grade);
+  const gradeData = getGradeFullData(grade);
 
   const row = document.createElement("tr");
-  /* row.innerHTML = `
+  row.innerHTML = `
     <tr>
       <td>${gradeData.studentName}</td>
       <td>${gradeData.studentLastName}</td>
@@ -58,7 +58,7 @@ const createGradeRow = (grade: Grade): void => {
       <td>${gradeData.value}</td>
       <td><button class="button">borrar</button></td>
     </tr>
-  `; */
+  `;
 
   row.querySelector("button")?.addEventListener("click", () => {
     // deleteGrade(grades, grade.id);
@@ -81,12 +81,12 @@ gradesForm.addEventListener("submit", (event) => {
   ) as HTMLSelectElement;
   const gradeValue = gradesForm.querySelector("#grade") as HTMLInputElement;
 
-  /* addGrade(
+  addGrade(
     grades,
     +gradeStudentId.value,
     +gradeCourseId.value,
     +gradeValue.value
-  ); */
+  );
   gradesStorage.save(grades);
 
   renderGradesTable();
