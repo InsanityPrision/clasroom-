@@ -2,6 +2,7 @@ import { showErrorModal } from "../../dom/index.js";
 import { courses } from "../../index.js";
 import { Course } from "../../types";
 import { generateId } from "../../utils.js";
+import { CourseOptions } from "../../types";
 
 // Crea una función para obtener el total de cursos
 // La función debe recibir un array de cursos y devolver el total de cursos
@@ -38,4 +39,14 @@ export const deleteCourse = (courses: Course[], courseId: number): void => {
 // La función debe devolver un array de objetos con dos propiedades: id y name
 // La propiedad id debe ser el id del curso
 // La propiedad name debe ser el nombre del curso
-// export const getCoursesOptions =
+export const getCoursesOptions = (courses: Course[]): Array<CourseOptions> => {
+  let coursesOptions: CourseOptions[] = [];
+  for (let position = 0; position < courses.length; position++) {
+    let courseOptions: CourseOptions = {
+      id: courses[position].id,
+      name: courses[position].name,
+    };
+    coursesOptions.push(courseOptions);
+  }
+  return coursesOptions;
+};

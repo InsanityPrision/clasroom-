@@ -36,3 +36,8 @@ export type StudentOptions = {
   name: string;
   lastName: string;
 };
+
+export type CourseOptions = {
+  id: number;
+  name: string;
+};
