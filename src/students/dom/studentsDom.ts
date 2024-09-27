@@ -24,7 +24,7 @@ export const renderStudentsTable = (): void => {
     createStudentRow(student);
   });
 
-  studentsCounter.textContent = `${getStudentsTotal()}`;
+  studentsCounter.textContent = `${getStudentsTotal(students)}`;
 };
 
 const createStudentRow = (student: Student): void => {

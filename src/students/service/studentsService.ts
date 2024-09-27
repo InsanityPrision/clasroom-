@@ -6,7 +6,7 @@ import { StudentOptions } from "../../types.js";
 
 // Crea una función para obtener el total de estudiantes
 // La función debe recibir un array de estudiantes y devolver el total de estudiantes
-export const getStudentsTotal = (): number => {
+export const getStudentsTotal = (students: Student[]): number => {
   return students.length;
 };
 

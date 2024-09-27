@@ -6,16 +6,8 @@ import { StudentGrade } from "../../types";
 
 // Crea una función para obtener el total de notas
 // La función debe recibir un array de notas y devolver el total de notas
-export const getGradesTotal = (grades: Grade[]): number => {
-  let gradesValue = [];
-  for (let position = 0; position < grades.length; position++) {
-    gradesValue.push(grades[position].value);
-  }
-  const gradesReduced = gradesValue.reduce(
-    (accumulator, currentValue) => accumulator + currentValue,
-    0
-  );
-  return gradesReduced;
+export const getGradesTotal = (gradess: Grade[]): number => {
+  return grades.length;
 };
 
 // Crea una función para obtener los datos completos de una nota
@@ -23,30 +15,19 @@ export const getGradesTotal = (grades: Grade[]): number => {
 // La función debe devolver un objeto con las mismas propiedades de la nota
 // más las propiedades studentName, studentLastName y courseName
 export const getGradeFullData = (grade: Grade): StudentGrade => {
-  let studentName = "";
-  let studentLastName = "";
-  let courseName = "";
-  for (let position = 0; position < students.length; position++) {
-    if (students[position].id === grade.id) {
-      studentName = students[position].name;
-    } else if (students[position].id === grade.id) {
-      studentLastName = students[position].lastName;
-    }
-  }
-  for (let position = 0; position < students.length; position++) {
-    if (courses[position].id === grade.courseId) {
-      courseName = courses[position].name;
-    }
-  }
+  let studentFindNameAndLastName = students.find(
+    (student) => student.id === grade.studentId
+  );
+  let courseFindName = courses.find((course) => course.id === grade.courseId);
 
   const studentGrade: StudentGrade = {
     id: grade.id,
     studentId: grade.studentId,
     courseId: grade.courseId,
     value: grade.value,
-    studentName: studentName,
-    studentLastName: studentLastName,
-    courseName: courseName,
+    studentName: studentFindNameAndLastName!.name,
+    studentLastName: studentFindNameAndLastName!.lastName,
+    courseName: courseFindName!.name,
   };
   return studentGrade;
 };
@@ -60,8 +41,8 @@ export const getGradeFullData = (grade: Grade): StudentGrade => {
 // Si la nota ya existe, muestra un error con showErrorModal
 export const addGrade = (
   grades: Grade[],
-  studentId: Student["id"],
-  courseId: Course["id"],
+  studentId: number,
+  courseId: number,
   gradeValue: number
 ): void => {
   let newGrade: Grade = {
@@ -70,15 +51,12 @@ export const addGrade = (
     courseId: courseId,
     value: gradeValue,
   };
-  for (let position = 0; position < grades.length; position++) {
-    if (grades.length === 0) {
-      grades.push(newGrade);
-      break;
-    }
-    if (grades[position].studentId === newGrade.studentId) {
-      showErrorModal("El estudiante ya tiene una nota!");
-    } else {
-      grades.push(newGrade);
-    }
+  const isSameStudentId = grades.some(
+    (grade) => grade.studentId === newGrade.studentId
+  );
+  if (isSameStudentId === false) {
+    grades.push(newGrade);
+  } else {
+    showErrorModal("El estudiante ya tiene una nota");
   }
 };
