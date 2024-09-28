@@ -60,7 +60,10 @@ export const addGrade = (
   const isSameStudentId = grades.some(
     (grade) => grade.studentId === newGrade.studentId
   );
-  if (isSameStudentId === false) {
+  const isDifferentCourseId = grades.some(
+    (grade) => grade.courseId !== newGrade.courseId
+  );
+  if (isSameStudentId === true && isDifferentCourseId === true) {
     grades.push(newGrade);
   } else {
     showErrorModal("El estudiante ya tiene una nota");
