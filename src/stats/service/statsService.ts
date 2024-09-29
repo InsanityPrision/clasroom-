@@ -6,6 +6,7 @@ import { CourseStats } from "../../types";
 // La función debe devolver un objeto de tipo CourseStats
 export const getCourseStats = (courseId: number): CourseStats => {
   const sameCourse = grades.filter((grade) => grade.courseId === courseId);
+  const yes = sameCourse.filter((grade) => grade.value >= 0);
   const studentsCount = grades.filter(
     (grade) => grade.courseId === courseId
   ).length;
@@ -13,8 +14,16 @@ export const getCourseStats = (courseId: number): CourseStats => {
   const passedCountPercentage = (passedCount * 100) / studentsCount;
   const failedCount = sameCourse.filter((grade) => grade.value < 5).length;
   const failedCountPercentage = (failedCount * 100) / studentsCount;
-  const averageGrade = 3;
-  const highestGrade = sameCourse;
+  const averageGrade =
+    sameCourse
+      .filter((grade) => grade.value >= 0)
+      .reduce(
+        (accumulator, currentValue) => accumulator + currentValue.value,
+        0
+      ) / studentsCount;
+  const highestGrade = yes.reduce((previous, current) =>
+    current.value > previous.value ? current : previous
+  );
   const highestGradeStudentId = 2;
 
   let CourseStats: CourseStats = {
@@ -24,15 +33,9 @@ export const getCourseStats = (courseId: number): CourseStats => {
     passedCountPercentage: passedCountPercentage,
     failedCount: failedCount,
     failedCountPercentage: failedCountPercentage,
-    averageGrade:
-      sameCourse
-        .filter((grade) => grade.value >= 0)
-        .reduce(
-          (accumulator, currentValue) => accumulator + currentValue.value,
-          0
-        ) / studentsCount,
-    highestGrade: 4,
-    highestGradeStudentId: highestGradeStudentId,
+    averageGrade: averageGrade,
+    highestGrade: highestGrade.value,
+    highestGradeStudentId: highestGrade.studentId,
   };
 
   return CourseStats;

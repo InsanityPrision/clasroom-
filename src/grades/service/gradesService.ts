@@ -6,7 +6,7 @@ import { StudentGrade } from "../../types";
 
 // Crea una función para obtener el total de notas
 // La función debe recibir un array de notas y devolver el total de notas
-export const getGradesTotal = (gradess: Grade[]): number => {
+export const getGradesTotal = (grades: Grade[]): number => {
   return grades.length;
 };
 
@@ -66,6 +66,6 @@ export const addGrade = (
   if (isSameStudentId === true && isDifferentCourseId === true) {
     grades.push(newGrade);
   } else {
-    showErrorModal("El estudiante ya tiene una nota");
+    showErrorModal("El estudiante ya tiene una nota en este curso");
   }
 };
